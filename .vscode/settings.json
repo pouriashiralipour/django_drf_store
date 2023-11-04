@@ -1,0 +1,22 @@
+{
+    "python.analysis.diagnosticSeverityOverrides": {
+    
+
+    },
+    "[python]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "ms-python.black-formatter"
+    },
+    "files.associations": {
+        "**/*.html": "html",
+        "**/templates/**/*.html": "django-html",
+        "**/templates/**/*": "django-txt",
+        "**/requirements{/**,*}.{txt,in}": "pip-requirements"
+      },
+    // "python.formatting.provider": "none",
+    "django.snippets.exclude": [
+
+        "cms",
+        "wagtail"
+    ]
+}
