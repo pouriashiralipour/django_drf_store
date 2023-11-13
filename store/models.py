@@ -30,5 +30,23 @@ class Order(models.Model):
     ]
     date_created = models.DateTimeField(auto_now_add=True)
     status = models.CharField(
-        max_length=1, choices=ORDER_STATUS, default=ORDER_STATUS_UNPAID
+        max_length=2, choices=ORDER_STATUS, default=ORDER_STATUS_UNPAID
+    )
+
+
+class Comment(models.Model):
+    COMMENT_STATUS_WAITING = "w"
+    COMMENT_STATUS_APPROVED = "a"
+    COMMENT_STATUS_NOTAPRROVED = "na"
+    COMMENT_STATUS = [
+        (COMMENT_STATUS_WAITING, "Wating"),
+        (COMMENT_STATUS_APPROVED, "Approves"),
+        (COMMENT_STATUS_NOTAPRROVED, "Not Approved"),
+    ]
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    name = models.CharField(max_length=250)
+    body = models.TextField()
+    datetime_created = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(
+        max_length=1, choices=COMMENT_STATUS, default=COMMENT_STATUS_WAITING
     )
