@@ -10,6 +10,9 @@ class Category(models.Model):
     datetime_created = models.DateTimeField(
         auto_now_add=True, verbose_name=_("datetime_created")
     )
+    selected_product = models.ForeignKey(
+        "Product", on_delete=models.SET_NULL, null=True
+    )
 
     class Meta:
         verbose_name = _("category")
