@@ -26,6 +26,15 @@ class Customer(models.Model):
     birth_day = models.DateField(null=True, blank=True)
 
 
+class Address(models.Model):
+    customer = models.OneToOneField(
+        Customer, on_delete=models.CASCADE, primary_key=True
+    )
+    province = models.CharField(max_length=250)
+    city = models.CharField(max_length=250)
+    street = models.CharField(max_length=255)
+
+
 class Order(models.Model):
     ORDER_STATUS_PAID = "p"
     ORDER_STATUS_UNPAID = "u"
