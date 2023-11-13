@@ -7,12 +7,18 @@ class Category(models.Model):
     datetime_created = models.DateTimeField(auto_now_add=True)
 
 
+class Discount(models.Model):
+    discount = models.FloatField()
+    description = models.CharField(max_length=250)
+
+
 class Product(models.Model):
     name = models.CharField(max_length=250)
     slug = models.SlugField()
     description = models.TextField()
     category = models.ForeignKey(Category, on_delete=models.PROTECT)
     price = models.DecimalField(max_digits=6, decimal_places=2)
+    discounts = models.ManyToManyField(Discount, blank=True)
     inventory = models.PositiveIntegerField()
     datetime_created = models.DateTimeField(auto_now_add=True)
     datetime_modified = models.DateTimeField(auto_now=True)
