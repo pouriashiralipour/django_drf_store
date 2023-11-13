@@ -11,10 +11,20 @@ class Category(models.Model):
         auto_now_add=True, verbose_name=_("datetime_created")
     )
 
+    class Meta:
+        verbose_name = _("category")
+        verbose_name_plural = _("categories")
+        ordering = ["datetime_created"]
+
 
 class Discount(models.Model):
     discount = models.FloatField(verbose_name=_("discount"))
     description = models.CharField(max_length=250, verbose_name=_("description"))
+
+    class Meta:
+        verbose_name = _("discount")
+        verbose_name_plural = _("discounts")
+        ordering = ["discount"]
 
 
 class Product(models.Model):
@@ -39,6 +49,11 @@ class Product(models.Model):
         auto_now=True, verbose_name=_("datetime_modified")
     )
 
+    class Meta:
+        verbose_name = _("product")
+        verbose_name_plural = _("products")
+        ordering = ["datetime_created"]
+
 
 class Customer(models.Model):
     fisrt_name = models.CharField(max_length=250, verbose_name=_("fisrt_name"))
@@ -46,6 +61,10 @@ class Customer(models.Model):
     email = models.EmailField(verbose_name=_("email"))
     phone_number = models.CharField(max_length=15, verbose_name=_("phone_number"))
     birth_day = models.DateField(null=True, blank=True, verbose_name=_("birth_day"))
+
+    class Meta:
+        verbose_name = _("customer")
+        verbose_name_plural = _("customers")
 
 
 class Address(models.Model):
@@ -55,6 +74,10 @@ class Address(models.Model):
     province = models.CharField(max_length=250, verbose_name=_("province"))
     city = models.CharField(max_length=250, verbose_name=_("city"))
     street = models.CharField(max_length=255, verbose_name=_("street"))
+
+    class Meta:
+        verbose_name = _("address")
+        verbose_name_plural = _("addresses")
 
 
 class Order(models.Model):
@@ -79,6 +102,11 @@ class Order(models.Model):
         verbose_name=_("status"),
     )
 
+    class Meta:
+        verbose_name = _("order")
+        verbose_name_plural = _("orders")
+        ordering = ["datetime_created"]
+
 
 class OredrItem(models.Model):
     order = models.ForeignKey(Order, verbose_name=_("order"), on_delete=models.PROTECT)
@@ -89,6 +117,8 @@ class OredrItem(models.Model):
     price = models.DecimalField(max_digits=6, decimal_places=2, verbose_name=_("price"))
 
     class Meta:
+        verbose_name = _("order Item")
+        verbose_name_plural = _("order Items")
         unique_together = [["order", "product"]]
 
 
@@ -116,11 +146,21 @@ class Comment(models.Model):
         verbose_name=_("status"),
     )
 
+    class Meta:
+        verbose_name = _("comment")
+        verbose_name_plural = _("comments")
+        ordering = ["datetime_created"]
+
 
 class Cart(models.Model):
     datetime_created = models.DateTimeField(
         auto_now_add=True, verbose_name=_("datetime_created")
     )
+
+    class Meta:
+        verbose_name = _("cart")
+        verbose_name_plural = _("carts")
+        ordering = ["datetime_created"]
 
 
 class CartItem(models.Model):
@@ -131,4 +171,6 @@ class CartItem(models.Model):
     quantity = models.PositiveSmallIntegerField(verbose_name=_("quantity"))
 
     class Meta:
+        verbose_name = _("cart Item")
+        verbose_name_plural = _("cart Items")
         unique_together = [["cart", "product"]]
