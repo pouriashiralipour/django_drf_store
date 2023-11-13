@@ -22,7 +22,10 @@ class Product(models.Model):
     slug = models.SlugField(verbose_name=_("slug"))
     description = models.TextField(verbose_name=_("description"))
     category = models.ForeignKey(
-        Category, on_delete=models.PROTECT, verbose_name=_("category")
+        Category,
+        on_delete=models.PROTECT,
+        related_name="products",
+        verbose_name=_("category"),
     )
     price = models.DecimalField(max_digits=6, decimal_places=2, verbose_name=_("price"))
     discounts = models.ManyToManyField(
@@ -77,6 +80,18 @@ class Order(models.Model):
     )
 
 
+class OredrItem(models.Model):
+    order = models.ForeignKey(Order, verbose_name=_("order"), on_delete=models.PROTECT)
+    product = models.ForeignKey(
+        Product, on_delete=models.PROTECT, verbose_name=_("product")
+    )
+    quantity = models.PositiveSmallIntegerField(verbose_name=_("quantity"))
+    price = models.DecimalField(max_digits=6, decimal_places=2, verbose_name=_("price"))
+
+    class Meta:
+        unique_together = [["order", "product"]]
+
+
 class Comment(models.Model):
     COMMENT_STATUS_WAITING = "w"
     COMMENT_STATUS_APPROVED = "a"
@@ -100,3 +115,20 @@ class Comment(models.Model):
         default=COMMENT_STATUS_WAITING,
         verbose_name=_("status"),
     )
+
+
+class Cart(models.Model):
+    datetime_created = models.DateTimeField(
+        auto_now_add=True, verbose_name=_("datetime_created")
+    )
+
+
+class CartItem(models.Model):
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE, verbose_name=_("cart"))
+    product = models.ForeignKey(
+        Product, on_delete=models.CASCADE, verbose_name=_("product")
+    )
+    quantity = models.PositiveSmallIntegerField(verbose_name=_("quantity"))
+
+    class Meta:
+        unique_together = [["cart", "product"]]
