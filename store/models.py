@@ -1,10 +1,17 @@
 from django.db import models
 
 
+class Category(models.Model):
+    title = models.CharField(max_length=250)
+    description = models.CharField(max_length=500, blank=True)
+    datetime_created = models.DateTimeField(auto_now_add=True)
+
+
 class Product(models.Model):
     name = models.CharField(max_length=250)
     slug = models.SlugField()
     description = models.TextField()
+    category = models.ForeignKey(Category, on_delete=models.PROTECT)
     price = models.DecimalField(max_digits=6, decimal_places=2)
     inventory = models.PositiveIntegerField()
     datetime_created = models.DateTimeField(auto_now_add=True)
@@ -28,6 +35,7 @@ class Order(models.Model):
         (ORDER_STATUS_UNPAID, "Unpaid"),
         (ORDER_STATUS_CANCELED, "Canceled"),
     ]
+    customer = models.ForeignKey(Customer, on_delete=models.PROTECT)
     date_created = models.DateTimeField(auto_now_add=True)
     status = models.CharField(
         max_length=2, choices=ORDER_STATUS, default=ORDER_STATUS_UNPAID
