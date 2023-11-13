@@ -2,4 +2,11 @@ from django.shortcuts import HttpResponse, render
 
 
 def say_hello(request):
-    return render(request, "home.html")
+    name = "pouria"
+    return render(
+        request,
+        "home.html",
+        {
+            "name": name,
+        },
+    )
