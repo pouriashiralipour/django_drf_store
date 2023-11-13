@@ -11,7 +11,7 @@ class Category(models.Model):
         auto_now_add=True, verbose_name=_("datetime_created")
     )
     selected_product = models.ForeignKey(
-        "Product", on_delete=models.SET_NULL, null=True
+        "Product", on_delete=models.SET_NULL, null=True, related_name="+"
     )
 
     class Meta:
@@ -151,7 +151,7 @@ class Comment(models.Model):
         auto_now_add=True, verbose_name=_("datetime_created")
     )
     status = models.CharField(
-        max_length=1,
+        max_length=2,
         choices=COMMENT_STATUS,
         default=COMMENT_STATUS_WAITING,
         verbose_name=_("status"),
