@@ -79,6 +79,7 @@ class Address(models.Model):
     street = models.CharField(max_length=255, verbose_name=_("street"))
 
     class Meta:
+        db_table = "customer_address"
         verbose_name = _("address")
         verbose_name_plural = _("addresses")
 
